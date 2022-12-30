@@ -1,4 +1,5 @@
 from colorama import Fore, Back, Style
+import turtle
 
 
 def show_menu(items):
@@ -7,13 +8,13 @@ def show_menu(items):
 
         # menu options :
         for index, item in enumerate(items):
-            if(index == 0):
+            if (index == 0):
                 continue
             print('    ' + Fore.BLUE +
                   '[' + Fore.RESET + str(index) + Fore.BLUE + ']' + Fore.RESET + ' : ' + item)
 
         print('    ' + Fore.BLUE +
-                '[' + Fore.RESET + str(0) + Fore.BLUE + ']' + Fore.RESET + ' : ' + items[0])
+              '[' + Fore.RESET + str(0) + Fore.BLUE + ']' + Fore.RESET + ' : ' + items[0])
         # get user action number
         selectedItem = input(
             Fore.GREEN + '\n #' + Fore.RESET + 'Enter number of upper actions that you want to do: \b ')
@@ -41,8 +42,8 @@ def fire_menu_action(selectedItem):
 
 
 def printResult(perimeter, area):
-    print('perimeter : ' , perimeter)
-    print('area : ' , area)
+    print('perimeter : ', perimeter)
+    print('area : ', area)
 
 
 def getInput(text, type):
@@ -74,38 +75,81 @@ menuItems = [
 
 def square():
 
-    print('\n\n ' + Fore.YELLOW + menuItems[0])
-    print(' ' + '=' * len(menuItems[0]) + Fore.RESET + '\n')
-    a = float(getInput(Fore.GREEN + ' #' + Fore.RESET + 'Enter the size of the side of the square: ','number'))
+    print('\n\n ' + Fore.YELLOW + menuItems[1])
+    print(' ' + '=' * len(menuItems[1]) + Fore.RESET + '\n')
+
+    a = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+              'Enter the size of the side of the square: ', 'number'))
 
     printResult(a*a, a*4)
 
 
 def rectangle():
-    print('\n\n ' + Fore.YELLOW + menuItems[1])
-    print(' ' + '=' * len(menuItems[1]) + Fore.RESET + '\n')
-    a = float(getInput(Fore.GREEN + ' #' + Fore.RESET + 'Enter the length of the rectangle: ', 'number'))
-    b = float(getInput(Fore.GREEN + ' #' + Fore.RESET + 'Enter the width of the rectangle: ', 'number'))
+    print('\n\n ' + Fore.YELLOW + menuItems[2])
+    print(' ' + '=' * len(menuItems[2]) + Fore.RESET + '\n')
+
+    a = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+              'Enter the length of the rectangle: ', 'number'))
+    b = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+              'Enter the width of the rectangle: ', 'number'))
 
     printResult(a*b, (a*2) + (b*2))
 
-    return 'rectangle'
-
 
 def triangle():
-    return 'triangle'
+    print('\n\n ' + Fore.YELLOW + menuItems[3])
+    print(' ' + '=' * len(menuItems[3]) + Fore.RESET + '\n')
+
+    base = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                          'Enter the size of the base of the triangle: ', 'number'))
+    height = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                            'Enter the size height of the triangle: ', 'number'))
+
+    printResult((base * height) / 2, base * 3)
 
 
 def circle():
-    return 'circle'
+    print('\n\n ' + Fore.YELLOW + menuItems[4])
+    print(' ' + '=' * len(menuItems[4]) + Fore.RESET + '\n')
+
+    diameter = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                              'Enter the diameter of the circle: ', 'number'))
+
+    printResult((3.14 * (diameter/2) * (diameter/2)), 3.14 * diameter)
 
 
 def trapezoid():
-    return 'trapezoid'
+    print('\n\n ' + Fore.YELLOW + menuItems[5])
+    print(' ' + '=' * len(menuItems[5]) + Fore.RESET + '\n')
+
+    bigBase = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                             'Enter the big base of the trapezoid: ', 'number'))
+    smallBase = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                               'Enter the small base of the trapezoid: ', 'number'))
+    firstSide = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                               'Enter the one side of the trapezoid: ', 'number'))
+    secondSide = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                                'Enter the other side of the trapezoid: ', 'number'))
+    height = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                            'Enter the height of the trapezoid: ', 'number'))
+
+    printResult(((bigBase + smallBase) / 2) * height,
+                bigBase + smallBase + firstSide + secondSide)
 
 
 def cylinder():
-    return 'cylinder'
+    print('\n\n ' + Fore.YELLOW + menuItems[5])
+    print(' ' + '=' * len(menuItems[5]) + Fore.RESET + '\n')
+
+    radius = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                            'Enter the radius of the base surface of the cylinder: ', 'number'))
+    height = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                            'Enter the height of the cylinder: ', 'number'))
+
+    baseArea = (3.14 * (radius*radius))
+    sideArea = (((2*3.14) * radius) * height)
+
+    printResult((baseArea * 2) + sideArea, 2 * ((radius*2) + height))
 
 
 def default():
@@ -126,9 +170,9 @@ itemsFunctions = {
     6: cylinder,
 }
 
+while True:
+    # show menu to user and get number of menu item
+    selectedItem = show_menu(menuItems)
 
-# show menu to user and get number of menu item
-selectedItem = show_menu(menuItems)
-
-# fire actions that user selected
-fire_menu_action(selectedItem)
+    # fire actions that user selected
+    fire_menu_action(selectedItem)
