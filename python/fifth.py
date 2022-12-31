@@ -1,15 +1,14 @@
 
 def bmm(first, second):
-    greater = bmm = 0
     if first > second:
-        greater = first
+        bmm = second
     else:
-        greater = second
-    for i in range(1, greater + 1):
-        if first % i == 0 and second % i == 0:
-            bmm = i
-        return bmm
-
+        bmm = first
+    while bmm > 1:
+        if first % bmm == 0 and second % bmm == 0:
+            return bmm
+        bmm-= 1
+    return 1
 
 first = input('Enter first number : ')
 second = input('Enter second number : ')
