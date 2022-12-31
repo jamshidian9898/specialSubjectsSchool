@@ -1,18 +1,17 @@
 def kmm(first, second):
+    return (first * second) / bmm(first , second)
 
+
+def bmm(first, second):
     if first > second:
-        greater = first
+        bmm = second
     else:
-        greater = second
-
-    while True:
-        if ((greater % first == 0) and (greater % second == 0)):
-            kmm = greater
-            break
-        greater += 1
-
-    return kmm
-
+        bmm = first
+    while bmm > 1:
+        if first % bmm == 0 and second % bmm == 0:
+            return bmm
+        bmm-= 1
+    return 1
 
 first = input('Enter first number : ')
 second = input('Enter second number : ')
