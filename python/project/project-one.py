@@ -1,5 +1,4 @@
 from colorama import Fore, Back, Style
-import turtle
 
 
 def show_menu(items):
@@ -38,25 +37,57 @@ def validate_menu_item(menuItems, selectedItem):
 
 
 def fire_menu_action(selectedItem):
-    return itemsFunctions.get(int(selectedItem), default)()
+    match selectedItem:
+        case '0':
+            endProgram()
+        case '1':
+            square()
+        case '2':
+            rectangle()
+        case '3':
+            triangle()
+        case '4':
+            circle()
+        case '5':
+            trapezoid()
+        case '6':
+            cylinder()
+        case '7':
+            Polygon()
+        case '8':
+            cone()
+        case '9':
+            Sphere()
+        case '10':
+            oval()
 
 
-def printResult(perimeter, area):
-    print('perimeter : ', perimeter)
-    print('area : ', area)
+def printResult(perimeter = None, area = None, volume = None):
+    print('\n ' + Fore.YELLOW + '=' * 25 + Fore.RESET)
 
+    if (perimeter is not None):
+        print(Fore.YELLOW + ' |' + Fore.RESET +Fore.GREEN + '  perimeter : ' + Fore.RESET, perimeter)
+
+    if (area is not None):
+        print(Fore.YELLOW + ' |' + Fore.RESET +Fore.GREEN + '  area : ' + Fore.RESET, area)
+
+    if (volume is not None):
+        print(Fore.YELLOW + ' |' + Fore.RESET +Fore.GREEN + '  Volume : ' + Fore.RESET, volume)
+
+    print(' ' + Fore.YELLOW + '=' * 25 + Fore.RESET + '\n')
 
 def getInput(text, type):
     inp = input(text)
     while True:
-        if ((type == 'number')):
-            try:
-                return float(inp)
-            except ValueError:
-                ':)'
-            return inp
-        elif ((type == 'string') and (not inp.isnumeric())):
-            return inp
+        if (inp != ''):
+            if ((type == 'number')):
+                try:
+                    return float(inp)
+                except ValueError:
+                    ':)'
+                return inp
+            elif ((type == 'string') and (not inp.isnumeric())):
+                return inp
 
         inp = input(
             Fore.RED + ' Your entered value is not valid.Try Again : ' + Fore.RESET)
@@ -70,6 +101,10 @@ menuItems = [
     'calculate Perimeter and area of circle',
     'calculate Perimeter and area of trapezoid',
     'calculate Perimeter and area of cylinder',
+    'calculate Perimeter and area of Polygon',
+    'calculate Perimeter and area of Cone',
+    'calculate Perimeter and area of Sphere',
+    'calculate Perimeter and area of oval',
 ]
 
 
@@ -138,8 +173,8 @@ def trapezoid():
 
 
 def cylinder():
-    print('\n\n ' + Fore.YELLOW + menuItems[5])
-    print(' ' + '=' * len(menuItems[5]) + Fore.RESET + '\n')
+    print('\n\n ' + Fore.YELLOW + menuItems[6])
+    print(' ' + '=' * len(menuItems[6]) + Fore.RESET + '\n')
 
     radius = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
                             'Enter the radius of the base surface of the cylinder: ', 'number'))
@@ -152,23 +187,87 @@ def cylinder():
     printResult((baseArea * 2) + sideArea, 2 * ((radius*2) + height))
 
 
-def default():
-    show_menu(items)
+def Polygon():
+    print('\n\n ' + Fore.YELLOW + menuItems[7])
+    print(' ' + '=' * len(menuItems[7]) + Fore.RESET + '\n')
+
+    sidesCount = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                                'Enter the sides count of the Polygon: ', 'number'))
+    lengthOfSide = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                                  'Enter the one side length of the Polygon: ', 'number'))
+    height = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                            'Enter the height of the Polygon: ', 'number'))
+
+    perimeter = sidesCount * lengthOfSide
+    area = (perimeter * height) / 2
+
+    printResult(perimeter, area)
+
+
+def cone():
+    print('\n\n ' + Fore.YELLOW + menuItems[8])
+    print(' ' + '=' * len(menuItems[8]) + Fore.RESET + '\n')
+
+    slopeLength = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                                 'Enter the slope length of the Cone: ', 'number'))
+    radius = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                            'Enter the slope length of base of the Polygon: ', 'number'))
+    height = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                            'Enter the height of the Cone: ', 'number'))
+
+    area = (slopeLength * radius * 3.14)
+    Volume = ((radius * radius) * height * 3.14) / 3
+
+    printResult( None , area, Volume)
+
+
+def Sphere():
+    print('\n\n ' + Fore.YELLOW + menuItems[9])
+    print(' ' + '=' * len(menuItems[9]) + Fore.RESET + '\n')
+
+    radius = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                            'Enter the slope length of base of the Polygon: ', 'number'))
+    height = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                            'Enter the height of the Cone: ', 'number'))
+
+    area = (4 * 3.14 * radius * radius)
+    Volume = (3.14 * radius * radius * radius) * (4 / 3)
+
+    printResult( None , area, Volume)
+
+
+def oval():
+    print('\n\n ' + Fore.YELLOW + menuItems[10])
+    print(' ' + '=' * len(menuItems[10]) + Fore.RESET + '\n')
+
+    bigRadius = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                               'Enter the biggest radius of the oval: ', 'number'))
+    smallRadius = float(getInput(Fore.GREEN + ' #' + Fore.RESET +
+                                 'Enter the smaller radius of base of the oval: ', 'number'))
+
+    area = (bigRadius * smallRadius * 3.14)
+    perimeter = (2 * 3.14 * (bigRadius * smallRadius / 2))
+
+    printResult(perimeter, area)
 
 
 def endProgram():
     exit(Fore.GREEN + '\n\n Exited by your choice. Have good day :)\n')
 
 
-itemsFunctions = {
-    0: endProgram,
-    1: square,
-    2: rectangle,
-    3: triangle,
-    4: circle,
-    5: trapezoid,
-    6: cylinder,
-}
+def wantsRoContinue():
+    print('\n\n ' + Fore.YELLOW + "Do you want to continue or exit the program ?")
+    print('    ' + Fore.BLUE +
+          '[' + Fore.RESET + str(1) + Fore.BLUE + ']' + Fore.RESET + ' : continue and get happy :) ')
+    print('    ' + Fore.BLUE +
+          '[' + Fore.RESET + str(0) + Fore.BLUE + ']' + Fore.RESET + ' : exit the program')
+
+    selection = getInput(Fore.GREEN + '\n #' + Fore.RESET +
+                         'Enter number of upper actions that you want to do: ', 'number')
+
+    if (selection != 1):
+        endProgram()
+
 
 while True:
     # show menu to user and get number of menu item
@@ -176,3 +275,6 @@ while True:
 
     # fire actions that user selected
     fire_menu_action(selectedItem)
+
+    # ask do you want use again or exit
+    wantsRoContinue()
